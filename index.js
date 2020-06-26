@@ -26,7 +26,7 @@ export function canOpenURL(url) {
 
 export function getPackageName(url) {
     if (Platform.OS === "android" && url.indexOf("intent:") === 0) {
-      
+      return RNLinkingWithIntent.getPackageName(url);
     }
     return new Promise((resolve) => resolve(null));
 }

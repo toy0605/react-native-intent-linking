@@ -2,32 +2,31 @@ import { Linking, NativeModules, Platform } from "react-native";
 
 const { RNLinkingWithIntent } = NativeModules;
 
-const openURL = (url) => {
+export function openURL(url) {
   if (Platform.OS !== "android" || url.indexOf("intent:") !== 0) return Linking.openURL(url);
 
   if (RNLinkingWithIntent) {
-    return RNLinkingWithIntent.openURL(url);
+    return (resolve) => RNLinkingWithIntent.openURL(url);
   }
   else {
-    return new Promise((resolve, reject) => reject("not found modules"));
+    throw new Error("Not Found Modules");
   }
 };
 
-const canOpenURL = (url) => {
+export function canOpenURL(url) {
   if (Platform.OS !== "android" || url.indexOf("intent:") !== 0) return Linking.canOpenURL(url);
 
   if (RNLinkingWithIntent) {
     return RNLinkingWithIntent.canOpenURL(url);
   }
   else {
-    return new Promise((resolve, reject) => reject("not found modules"));
+    throw new Error("Not Found Modules");
   }
 };
 
-
-export default {
-  ...Linking,
-  openURL,
-  canOpenURL,
+export function getPackageName(url) {
+    if (Platform.OS === "android" && url.indexOf("intent:") === 0) {
+      
+    }
+    return new Promise((resolve) => resolve(null));
 }
-

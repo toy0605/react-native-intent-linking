@@ -51,7 +51,18 @@ public class RNLinkingWithIntentModule extends ReactContextBaseJavaModule {
         catch(Exception ex) {
             promise.reject(ex);
         }
+    }
 
+    @ReactMethod
+    public void getPackageName(String url, Promise promise) {
+        try {
+            Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            
+            promise.resolve(intent.getPackage());
+        }
+        catch(Exception ex) {
+            promise.reject(ex);
+        }
     }
 
 }

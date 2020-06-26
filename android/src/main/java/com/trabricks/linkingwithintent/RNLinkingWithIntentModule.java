@@ -30,7 +30,7 @@ public class RNLinkingWithIntentModule extends ReactContextBaseJavaModule {
     public void openURL(String url, Promise promise) {
         try {
             Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
-            Intent existPackage = getPackageManager().getLaunchIntentForPackage(intent.getPackage());
+            Intent existPackage = reactContext.getPackageManager().getLaunchIntentForPackage(intent.getPackage());
             if (existPackage != null) {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 reactContext.getCurrentActivity().startActivity(intent);

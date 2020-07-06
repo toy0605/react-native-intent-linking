@@ -6,7 +6,7 @@ export function openURL(url) {
   if (Platform.OS !== "android" || url.indexOf("intent:") !== 0) return Linking.openURL(url);
 
   if (RNLinkingWithIntent) {
-    return (resolve) => RNLinkingWithIntent.openURL(url);
+    return RNLinkingWithIntent.openURL(url);
   }
   else {
     throw new Error("Not Found Modules");
